@@ -1,0 +1,36 @@
+.alert-list {
+    width: 40%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .alert {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 50px;
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 2rem;
+        h3 {
+            margin: 0;
+        }
+    }
+    .correct-alert {
+        color: green;
+        background-color: #D1FACD;
+        border-color: green;
+    }
+    
+    .incorrect-alert {
+        color: red;
+        background-color: #ffdddd;
+        border-color: red;
+    }
+    
+    .done-alert {
+        color: orange;
+        background-color: #ffffdd;
+        border-color: orange;
+    }
+}
