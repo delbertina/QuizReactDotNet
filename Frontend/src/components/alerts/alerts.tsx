@@ -74,9 +74,10 @@ class Alerts extends Component<Props, State> {
             }
             case 'done': {
                 this.setState({ isDisplayDone: true });
-                setTimeout(() => {
-                    this.setState({ isDisplayDone: false });
-                }, 3000);
+                break;
+            }
+            default: {
+                this.setState({ isDisplayCorrect: false, isDisplayDone: false, isDisplayIncorrect: false });
                 break;
             }
         }

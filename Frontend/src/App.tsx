@@ -1,60 +1,30 @@
 import './App.scss';
-import React, { Component } from 'react';
-import Card from './components/card/card';
-import Alerts from './components/alerts/alerts';
+import { Component } from 'react';
 import Header from './components/header/header';
+import Quiz from './components/quiz/quiz';
+import Question_List from './components/question-list/question-list';
+import Question_Delete from './components/question-delete/question-delete';
+import Question_Edit from './components/question-edit/question-edit';
+import Question_New from './components/question-new/question-new';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 interface Props { }
-interface State {
-  totalCorrect: number;
-}
+interface State { }
 
 class App extends Component<Props, State> {
-
-  private childCard: React.RefObject<Card>;
-  private childAlerts: React.RefObject<Alerts>;
-
-  constructor(props: Props) {
-    super(props);
-    this.state = { totalCorrect: 0 };
-    this.childCard = React.createRef();
-    this.childAlerts = React.createRef();
-  }
-
-  handleAlertChange(alert: string, totalCorrect: number) {
-    this.setState({ totalCorrect: totalCorrect });
-    this.childAlerts.current?.handleAlertChange(alert);
-  }
-
-  handleStartOver() {
-    this.childCard.current?.restartQuiz();
-  }
-
   render() {
     return (
       <div>
-        <Header />
-        <div className="main">
-          <div className="alert-wrapper">
-            <Alerts
-              totalCorrect={this.state.totalCorrect}
-              ref={this.childAlerts}
-            />
-          </div>
-          <div className="card-wrapper">
-            <Card
-              onAlertChange={this.handleAlertChange.bind(this)}
-              ref={this.childCard}
-            />
-          </div>
-          <div className="page-actions">
-            <button
-              className="start-over-button"
-              onClick={() => { this.handleStartOver() }}>
-              Start Over
-            </button>
-          </div>
-        </div>
+        <BrowserRouter>
+          <Header />
+          <Switch>
+            <Route exact path={`/`} component={Quiz} />
+            <Route exact path={`/question/list`} component={Question_List} />
+            <Route exact path={`/question/new`} component={Question_New} />
+            <Route exact path={`/question/delete/:questionid`} component={Question_Delete} />
+            <Route exact path={`/question/edit/:questionid`} component={Question_Edit} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }

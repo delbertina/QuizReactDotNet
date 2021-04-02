@@ -2,7 +2,8 @@ import { Component } from 'react';
 import './card.scss';
 
 interface Props {
-    onAlertChange: Function
+    onAlertChange: Function,
+    isDone: boolean
 }
 interface State {
     totalCorrect: number,
@@ -59,23 +60,27 @@ class Card extends Component<Props, State>  {
                     isLoading: false
                 });
                 if (this.state.questionNum > 15) {
-                    this.restartQuiz();
+                    this.endQuiz();
                 }
             }).catch(console.log);
     }
 
-    public restartQuiz() {
+    public endQuiz() {
         this.props.onAlertChange('done', this.state.totalCorrect);
         this.setState({
             totalCorrect: 0,
             questionNum: 0,
         });
+    }
+
+    public restartQuiz() {
+        this.props.onAlertChange('', this.state.totalCorrect);
         this.nextQuestion();
     }
 
     public render() {
         return (
-            <div className="card" >
+            <div className={`card ${this.props.isDone ? "card-done" : ""}`} >
                 <div className="card-header">
                     <h3>
                         Question #{this.state.questionNum}

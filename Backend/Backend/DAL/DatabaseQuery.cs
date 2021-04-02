@@ -154,7 +154,7 @@ namespace Backend.DAL
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();
-                    String sql = "DELETE * FROM Questions OUTPUT DELETED.* WHERE ID = @id";
+                    String sql = "DELETE FROM Questions OUTPUT DELETED.* WHERE ID = @id";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         var idParam = new SqlParameter("id", SqlDbType.Int);
