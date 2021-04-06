@@ -70,7 +70,11 @@ class Question_Edit extends Component<Props, State> {
             });
     }
     handleEditClick() {
-        this.setState({ isLoading: true });
+        this.setState({ isLoading: true, isError: false });
+        if (!this.isFormValid()) {
+            this.setState({ isError: true });
+            return;
+        }
         fetch('http://127.0.0.1:5000/api/QuizQuestion/' + this.props.match.params.questionid, {
             method: 'POST', body: JSON.stringify({
                 questionid: this.state.questionid,
@@ -95,7 +99,38 @@ class Question_Edit extends Component<Props, State> {
             });
     }
 
+    isFormValid() {
+        this.setState({ errorMessage: '' });
+        if (isNaN(this.state.questioncorrectid)) {
+            this.setState({ errorMessage: 'Correct ID is invalid!' });
+            return false;
+        } else if (this.state.questioncorrectid < 0 || this.state.questioncorrectid > 3) {
+            this.setState({ errorMessage: "Correct ID is out of range!" });
+            return false;
+        } else if ((typeof this.state.questiontext) !== 'string') {
+            this.setState({ errorMessage: 'Question text is invalid!' });
+            return false;
+        } else if (this.state.questiontext.length < 16) {
+            this.setState({ errorMessage: 'Question text is too short' });
+            return false;
+        } else if ((typeof this.state.questionanswer1) !== 'string' || this.state.questionanswer1.length < 1) {
+            this.setState({ errorMessage: 'Answer #1 is invalid!' });
+            return false;
+        } else if ((typeof this.state.questionanswer2) !== 'string' || this.state.questionanswer2.length < 1) {
+            this.setState({ errorMessage: 'Answer #2 is invalid!' });
+            return false;
+        } else if ((typeof this.state.questionanswer3) !== 'string' || this.state.questionanswer3.length < 1) {
+            this.setState({ errorMessage: 'Answer #3 is invalid!' });
+            return false;
+        } else if ((typeof this.state.questionanswer4) !== 'string' || this.state.questionanswer4.length < 1) {
+            this.setState({ errorMessage: 'Answer #4 is invalid!' });
+            return false;
+        }
+        return true;
+    }
+
     handelFormChange(event: ChangeEvent<HTMLInputElement>) {
+        event.preventDefault();
         console.log(event);
         switch (event.target.name) {
             case "questiontext":
@@ -168,6 +203,9 @@ class Question_Edit extends Component<Props, State> {
                         </div>
                     </div>
                     <h5>Submit edits?</h5>
+                    <h5 className={"error-message" + this.state.isError ? "" : "display-none"}>
+                        {this.state.errorMessage}
+                    </h5>
                     <div className="question-action-list">
                         <Link to={`/question/list`}>
                             <button className="question-action-button">Cancel</button>
