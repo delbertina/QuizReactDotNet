@@ -1,0 +1,39 @@
+.card {
+    border-style: solid;
+    border-width: 3px;
+    border-color: gray;
+    border-radius: 1rem;
+    margin: 10px;
+    width: 60%;
+    .card-content {
+        margin: 0 10px 0 10px;
+        overflow-wrap: break-word;
+    }
+    .card-actions {
+        margin: 10px;
+        .answer-button {
+            padding: 10px;
+            background-color: #dddddd;
+            border-style: none;
+            border-radius: 0.4rem;
+            margin: 5px;
+            &:focus {
+                outline: none;
+                background-color: #cccccc;
+            }
+            &.correct-button {
+                &:focus, &:disabled {
+                background-color: #D1FACD;
+                }
+            }
+            &.incorrect-button {
+                &:focus, &:disabled {
+                background-color: #ffdddd;
+                }
+            }
+        }
+    }
+}
+.card-done {
+    display: none;
+}

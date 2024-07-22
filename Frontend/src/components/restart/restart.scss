@@ -1,0 +1,11 @@
+.start-over-button {
+    padding: 10px;
+    background-color: #dddddd;
+    border-style: none;
+    border-radius: 0.4rem;
+    margin: 5px;
+    &:focus {
+        outline: none;
+        background-color: #cccccc;
+    }
+}

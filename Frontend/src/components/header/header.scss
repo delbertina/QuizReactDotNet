@@ -1,0 +1,29 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    text-align: left;
+    margin-bottom: 10px;
+    background-color: #eeeeee;
+    h2 {
+
+        padding: 10px;
+        margin: 0 auto 0 0;
+    }
+    button.nav-button {
+        font-size: 16px;  
+        border: none;
+        border-left: solid 2px #aaaaaa;
+        border-right: solid 2px #aaaaaa;
+        outline: none;
+        color: white;
+        padding: 14px 16px;
+        background-color: #aaaaaa;
+        margin: 0;
+        &:hover {
+            border-left: solid 2px black;
+            border-right: solid 2px black;
+            background-color: #888888;
+        }
+    }
+}
